@@ -16,9 +16,23 @@
 # a_t = accélérateur tangentiel
 # v0 = vitesse initiale
 # v_t = vitesse tangentielle
-# r = rayon du mouvement circulaire
-# dureeVie = durée de vie d'un muon
-v0 = 10             # doit être modifiable
-r = 6400            # doit etre modifiable
-dureeVie = 2
+# r = rayon du mouvement circulaire en m
+# dureeViePropre = durée de vie propre moyenne d'un muon
+# dureeVieMoyenne = durée de vie moyenne dans le labo
+# distanceMoyenne = durée de vie moyenne dans le labo
+
+
+c = 299_792_458           # c = constante de célérité de la lumière dans le vide
+v0 = 10
+v_t = 50                  # doit etre modifiable
+r = 6400                  # doit etre modifiable
+dureeViePropre = 2        # doit etre modifiable
+
+dureeVieMoyenne = 0       # à déterminer
+distanceMoyenne = 0       # à déterminer
+
+# voir les équations
+
+
+
 
