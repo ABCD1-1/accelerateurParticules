@@ -21,15 +21,24 @@
 # dureeVieMoyenne = durée de vie moyenne dans le labo
 # distanceMoyenne = durée de vie moyenne dans le labo
 
+"""
+Variables
+"""
+c = 299_792_458                     # constante de célérité de la lumière dans le vide
+v0 = 10                             # vitesse initial
+v_t = 50                            # vitesse tangentielle
+r = 6400                            # rayon de l'accelerateur
+dureeViePropre = 2.2*10**(-6)       # duree de vie propre moyenne d'un muon
 
-c = 299_792_458           # c = constante de célérité de la lumière dans le vide
-v0 = 10
-v_t = 50                  # doit etre modifiable
-r = 6400                  # doit etre modifiable
-dureeViePropre = 2        # doit etre modifiable
+"""
+Résultats
+"""
+dureeVieMoyenne = 0  
+distanceMoyenne = 0    
 
-dureeVieMoyenne = 0       # à déterminer
-distanceMoyenne = 0       # à déterminer
+def accelerateur_circulaire(celerite,v_initiale,v_tangentielle,rayon,duree_vie_propre):
+
+    return 
 
 # voir les équations
 
