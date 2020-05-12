@@ -9,7 +9,7 @@ Dans le cadre, de la science du numérique, nous devons réaliser une simulation
 | Vitesse initiale |                   | m/s       |
 | Accélaration (cas 1)   |            | m/s2|
 | Durée de vie propre moyenne de la particule|           |s|
-| Rayon R (cas 2)|             | m|
+| Rayon (cas 2)|   R          | m|
 | Vitesse tangentielle (cas 2) |            | ? |
 
 ## Résultats :
