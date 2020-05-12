@@ -48,4 +48,6 @@ print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
 
 # voir les équations
 
+def accelerateur_circulaire(celerite,v_initiale,v_tangentielle,rayon,duree_vie_propre):
 
+    return
