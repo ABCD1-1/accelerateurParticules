@@ -21,33 +21,44 @@
 # v0 = vitesse initiale
 # v_t = vitesse tangentielle
 # v_angulaire = vitesse angulaire
-# r = rayon du mouvement circulaire en m
+# r = rayon du mouvement circulaire en mètre
 # dureeViePropre = durée de vie propre moyenne d'un muon (de sa naissance à sa désintégration)
 # dureeVieMoyenneLabo = durée de vie moyenne dans le labo en seconde
 # distanceMoyenne = durée de vie moyenne dans le labo en seconde
 
 from math import pi, sqrt
-
+from numpy import linspace
+"""
+Variables
+"""
 c = 299_792_458           # c = constante de célérité de la lumière dans le vide en m/s
-v0 = 0.9*c                # mouvement circulaire dont le rayon ne varie pas v = v_t
+# r = int(input("Saisissez le rayon du cercle (en mètre): "))
 r = 6400                  # doit etre modifiable
-v_t = v0                  # doit etre modifiable et constante, donc pas d'accélérateur tangentiel
-dureeViePropre = 2E-6     # doit etre modifiable
-gamma = 1/sqrt(1-v_t**2/(c**2))
+# v0 = float(input("Saisissez le rapport vitesse du muon / celerite de la lumière :\n(exemple 0.9 pour une vitesse de 0.9*c) "))*c
+v0 = 0.9*c
+#dureeViePropre = float(input("Saisissez la durée de vie d'un muon en microseconde :\n(exemple 6 pour une durée de de 6 µs"))
+dureeViePropre = 2.2E-6     # doit etre modifiable
+v_t = linspace(0,1,1000)
+dureeVieLaboTableau = []
+distanceMoyenneTableau = []
+for i in range(len(v_t)):
+    vitesse = v_t[i]*c-0.0001           # -0.0001 pour éviter l'erreur de division par 0
+    gamma = 1/sqrt(1-vitesse**2/(c**2))
+    v_angulaire = vitesse/r
+    a_n = -vitesse**2/r
+    dureeVieMoyenneLabo = dureeViePropre*gamma       # à déterminer
+    distanceMoyenne = vitesse*dureeVieMoyenneLabo       # à déterminer
+    dureeVieLaboTableau.append(dureeVieMoyenneLabo)
+    distanceMoyenneTableau.append(distanceMoyenne)
+    #print("Durée de vie en labo (en secondes) : ",dureeVieMoyenneLabo)
+    #print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
 
-v_angulaire = v_t/r
-a_n = -v_t*v_t/r
-
-
-dureeVieMoyenneLabo = dureeViePropre*gamma       # à déterminer
-distanceMoyenne = v_t*dureeVieMoyenneLabo       # à déterminer
-print("Durée de vie en labo (en secondes) : ",dureeVieMoyenneLabo)
-print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
+print(len(dureeVieLaboTableau))
+print(dureeVieLaboTableau)
+print(distanceMoyenneTableau)
 
 # tracer l'esperance de vie en fonction des vitesses tangentielles
 
 # voir les équations
 
-def accelerateur_circulaire(celerite,v_initiale,v_tangentielle,rayon,duree_vie_propre):
 
-    return
