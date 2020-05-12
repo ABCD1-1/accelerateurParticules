@@ -12,27 +12,40 @@
 # Une fois ces paramètres entrés, vous afficherez comme résultats la durée de vie moyenne dans le labo
 # et la distance moyenne parcourue dans le labo.
 
+# a = a_n Or + a_t Ot
+# a = -R*v_angulaire² Or (Axe rayon)        +   R d/dt(v_angulaire) Ot (Axe tangentiel)        si uniforme, d/dt(v_angulaire) = 0
+# v = R * v_angulaire
+
 # a_n = accélérateur normal
 # a_t = accélérateur tangentiel
 # v0 = vitesse initiale
 # v_t = vitesse tangentielle
+# v_angulaire = vitesse angulaire
 # r = rayon du mouvement circulaire en m
-# dureeViePropre = durée de vie propre moyenne d'un muon
-# dureeVieMoyenne = durée de vie moyenne dans le labo
-# distanceMoyenne = durée de vie moyenne dans le labo
+# dureeViePropre = durée de vie propre moyenne d'un muon (de sa naissance à sa désintégration)
+# dureeVieMoyenneLabo = durée de vie moyenne dans le labo en seconde
+# distanceMoyenne = durée de vie moyenne dans le labo en seconde
 
+from math import pi, sqrt
 
-c = 299_792_458           # c = constante de célérité de la lumière dans le vide
-v0 = 10
-v_t = 50                  # doit etre modifiable
+c = 299_792_458           # c = constante de célérité de la lumière dans le vide en m/s
+v0 = 0.9*c                # mouvement circulaire dont le rayon ne varie pas v = v_t
 r = 6400                  # doit etre modifiable
-dureeViePropre = 2        # doit etre modifiable
+v_t = v0                  # doit etre modifiable et constante, donc pas d'accélérateur tangentiel
+dureeViePropre = 2E-6     # doit etre modifiable
+gamma = 1/sqrt(1-v_t**2/(c**2))
 
-dureeVieMoyenne = 0       # à déterminer
-distanceMoyenne = 0       # à déterminer
+v_angulaire = v_t/r
+a_n = -v_t*v_t/r
+
+
+dureeVieMoyenneLabo = dureeViePropre*gamma       # à déterminer
+distanceMoyenne = v_t*dureeVieMoyenneLabo       # à déterminer
+print("Durée de vie en labo (en secondes) : ",dureeVieMoyenneLabo)
+print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
+
+# tracer l'esperance de vie en fonction des vitesses tangentielles
 
 # voir les équations
-
-
 
 
