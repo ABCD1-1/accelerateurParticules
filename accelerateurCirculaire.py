@@ -26,8 +26,15 @@
 # dureeVieMoyenneLabo = durée de vie moyenne dans le labo en seconde
 # distanceMoyenne = durée de vie moyenne dans le labo en seconde
 
+from tkinter import *
 from math import pi, sqrt
-from numpy import linspace
+
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import *
+from matplotlib.figure import Figure
+import numpy as np
+
 """
 Variables
 """
@@ -35,14 +42,14 @@ c = 299_792_458           # c = constante de célérité de la lumière dans le 
 # r = int(input("Saisissez le rayon du cercle (en mètre): "))
 r = 6400                  # doit etre modifiable
 # v0 = float(input("Saisissez le rapport vitesse du muon / celerite de la lumière :\n(exemple 0.9 pour une vitesse de 0.9*c) "))*c
-v0 = 0.9*c
-#dureeViePropre = float(input("Saisissez la durée de vie d'un muon en microseconde :\n(exemple 6 pour une durée de de 6 µs"))
+v0 = 0.9*c                # doit etre modifiable
+# dureeViePropre = float(input("Saisissez la durée de vie d'un muon en microseconde :\n(exemple 6 pour une durée de de 6 µs"))
 dureeViePropre = 2.2E-6     # doit etre modifiable
-v_t = linspace(0,1,1000)
+v_t = np.linspace(0,1,1000)
 dureeVieLaboTableau = []
 distanceMoyenneTableau = []
 for i in range(len(v_t)):
-    vitesse = v_t[i]*c-0.0001           # -0.0001 pour éviter l'erreur de division par 0
+    vitesse = v_t[i]*c-0.000001           # -0.000001 pour éviter l'erreur de division par 0
     gamma = 1/sqrt(1-vitesse**2/(c**2))
     v_angulaire = vitesse/r
     a_n = -vitesse**2/r
@@ -50,15 +57,51 @@ for i in range(len(v_t)):
     distanceMoyenne = vitesse*dureeVieMoyenneLabo       # à déterminer
     dureeVieLaboTableau.append(dureeVieMoyenneLabo)
     distanceMoyenneTableau.append(distanceMoyenne)
-    #print("Durée de vie en labo (en secondes) : ",dureeVieMoyenneLabo)
-    #print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
+    # print("Durée de vie en labo (en secondes) : ",dureeVieMoyenneLabo)
+    # print("\nDistance moyenne parcourue en mètre : ",distanceMoyenne)
 
 print(len(dureeVieLaboTableau))
 print(dureeVieLaboTableau)
 print(distanceMoyenneTableau)
 
+win = Tk()
+win.title("Mouvement circulaire uniforme")
+
+vitesseIniVar = StringVar()
+rayonVar = StringVar()
+dureeViePropreVar = StringVar()
+
+vitesseIniVar.set("Vitesse initiale en rapport v0/c")
+rayonVar.set("Rayon (en m)")
+dureeViePropreVar.set("Durée de vie propre (en s)")
+
+vitesseIni_text = Label(win, text = vitesseIniVar.get())
+acceleration_text = Label(win, text = rayonVar.get())
+tPropre_text = Label(win, text = dureeViePropreVar.get())
+
+vitesseIni_input = Entry(win)
+acceleration_input = Entry(win)
+tPropre_input = Entry(win)
+
+calcul = Button(win, text='Calculer')
+fig = Figure()
+ax = fig.add_subplot(111)
+ax.grid(True)
+
+graph = FigureCanvasTkAgg(fig, master=win)
+canvas = graph.get_tk_widget()
+canvas.grid(row=0, column=0, pady=0, columnspan = 4)
+vitesseIni_text.grid(row=1, column=1)
+acceleration_text.grid(row=1, column=2)
+tPropre_text.grid(row=1, column=3)
+vitesseIni_input.grid(row=2, column=1)
+acceleration_input.grid(row=2, column=2)
+tPropre_input.grid(row=2, column=3)
+calcul.grid(row = 3, column = 0, pady=0, columnspan = 4)  # regrouper plusieurs cellules d’une ligne via columnspan, pady = marge externe verticale
+win.mainloop()
+
+
 # tracer l'esperance de vie en fonction des vitesses tangentielles
 
-# voir les équations
 
 

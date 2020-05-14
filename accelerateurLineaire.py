@@ -75,7 +75,7 @@ accelerationVar = StringVar()
 tPropreVar = StringVar()
 
 celeriteVar.set("Célérité")
-vitesseIniVar.set("Vitesse initial")
+vitesseIniVar.set("Vitesse initiale")
 accelerationVar.set("Accélération")
 tPropreVar.set("Temps propre")
 
