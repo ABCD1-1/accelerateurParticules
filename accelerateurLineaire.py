@@ -94,7 +94,7 @@ vitesseIniValue.set(v0)
 accelerationValue.set(a)
 tPropreValue.set(duree_vie_propre)
 
-vitesseIniVar.set("Vitesse initial")
+vitesseIniVar.set("Vitesse initiale")
 accelerationVar.set("Accélération")
 tPropreVar.set("Temps propre")
 
