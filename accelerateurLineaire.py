@@ -1,6 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import acos,exp
+from tkinter import *
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import *
+from matplotlib.figure import Figure
+
+def onCLick():
+    return
 
 def accelerateur_lineaire(c,v0,a0,duree_vie_propre):
     x = np.linspace(0,10,100000)
@@ -24,16 +32,15 @@ def accelerateur_lineaire(c,v0,a0,duree_vie_propre):
     plt.xlabel('temps (s)')
     plt.ylabel('vitesse (m/s)')
 
-    plt.figure(1)
-    plt.plot(x,a_array)
-    plt.xlabel('v0 (m/s2)')
-    plt.ylabel('espérance de vie (s)')
-    plt.show()
+    fig = Figure()
+    ax = fig.add_subplot(111, xlabel='v0 (m/s2)', ylabel='espérance de vie (s)')
+    ax.plot(x,a_array)
+    ax.grid(True)
 
+    graph = FigureCanvasTkAgg(fig, master=win)
+    canvas = graph.get_tk_widget()
+    canvas.grid(row=0, column=0, pady=0, columnspan = 4)
 
-
-
-    return 
 
 #def vitesse(a,t,v0,c):
 #    return (a*t)/(1+(a*t/c)**2)**(1/2)
@@ -57,6 +64,48 @@ a = g
 duree_vie_propre = 2.2E-6
 t=0
 
-accelerateur_lineaire(c,v0,a,duree_vie_propre)
+#accelerateur_lineaire(c,v0,a,duree_vie_propre)
+
+win = Tk()
+win.title("Acceleration constante le long d'un axe")
+
+celeriteVar = StringVar()
+vitesseIniVar = StringVar()
+accelerationVar = StringVar()
+tPropreVar = StringVar()
+
+celeriteVar.set("Célérité")
+vitesseIniVar.set("Vitesse initial")
+accelerationVar.set("Accélération")
+tPropreVar.set("Temps propre")
+
+celerite_text = Label(win, text = celeriteVar.get())
+vitesseIni_text = Label(win, text = vitesseIniVar.get())
+acceleration_text = Label(win, text = accelerationVar.get())
+tPropre_text = Label(win, text = tPropreVar.get())
+
+celerite_input = Entry(win)
+vitesseIni_input = Entry(win)
+acceleration_input = Entry(win)
+tPropre_input = Entry(win)
+
+calcul = Button(win, text='Calculer')
+fig = Figure()
+ax = fig.add_subplot(111)
+ax.grid(True)
+
+graph = FigureCanvasTkAgg(fig, master=win)
+canvas = graph.get_tk_widget()
+canvas.grid(row=0, column=0, pady=0, columnspan = 4)
+celerite_text.grid(row=1, column=0)
+vitesseIni_text.grid(row=1, column=1)
+acceleration_text.grid(row=1, column=2)
+tPropre_text.grid(row=1, column=3)
+celerite_input.grid(row=2, column=0)
+vitesseIni_input.grid(row=2, column=1)
+acceleration_input.grid(row=2, column=2)
+tPropre_input.grid(row=2, column=3)
+calcul.grid(row = 3, column = 0, pady=0, columnspan = 4)
+win.mainloop()
 
 
