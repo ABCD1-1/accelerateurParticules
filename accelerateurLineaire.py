@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from math import acos,exp
+from math import acos,exp,asinh
 from tkinter import *
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import *
 from matplotlib.figure import Figure
+from scipy.integrate import quad
 
 def onCLick():
     return
@@ -15,22 +16,31 @@ def accelerateur_lineaire():
     global vitesseIniValue
     global accelerationValue
     global tPropreValue
+    global a0
 
-    v0 = vitesseIniValue.get()
+    v = vitesseIniValue.get()
     a0 = accelerationValue.get()
-    duree_vie_propre = tPropreValue.get()
 
-    x = np.linspace(0,10,100)
+    global n
+    global start
+    global stop
+    global v_array
+
+    n = 1000
+    start = 0
+    stop = 10
+    x = np.linspace(start,stop,n)
     a_array = []
     v_array = []
     tempsPropre = []
 
     for elt in x:
-        a = acceleration(elt,a0)
-        a_array.append(a)
-        v_array.append(vitesse(elt,v0))
-        tempsPropre.append(temps_propre(elt,a,c))
-    
+        a_array.append(acceleration(v))
+        v = vitesse(elt)
+        v_array.append(v)
+
+    tempsPropre.append(temps_propre())
+    print(tempsPropre[0])
     fig1 = Figure()
     ax1 = fig1.add_subplot(211, xlabel='temps (s)', ylabel='acceleration (m/s2)' )
     ax1.plot(x,a_array)
@@ -52,30 +62,25 @@ def accelerateur_lineaire():
     canvas2 = graph2.get_tk_widget()
     canvas2.grid(row=0, column=6)
 
+def acceleration(v):
+    return (1-((v-v0)/c)**2)**(3/2)*a0
 
+def vitesse(t):
+    return (a0*t)/(1+((a0*t)/(c-v0))**2)**(1/2)+v0
 
+#def temps_propre(t):
+#    return ((1-(vitesse(t)**2)/(c**2)))**(1/2)
 
-#def vitesse(a,t,v0,c):
-#    return (a*t)/(1+(a*t/c)**2)**(1/2)
-
-def temps_propre(t,a,c):
-    return (c/a)*acos(a*t/c)
-
-#def position(c,a,t):
-#    return (c**2/a)*(1+((a*t)/c)**2)**(1/2)
-
-def acceleration(t,a):
-    print(exp(-t))
-    return a*exp(-t)+5e-324
-
-def vitesse(t,v0):
-    return (c-v0)*(1-exp(-t))+v0
+def temps_propre():
+    return (c/a0)*asinh(a0*duree_vie_propre/c)
 
 c = 299_792_458
 v0 = 0.9*c
-a = 9.81
+g = 9.81
+a0 = g
 duree_vie_propre = 2.2E-6
 t=0
+v = v0
 
 #accelerateur_lineaire(c,v0,a,duree_vie_propre)
 
@@ -91,7 +96,7 @@ accelerationValue = DoubleVar()
 tPropreValue = DoubleVar()
 
 vitesseIniValue.set(v0)
-accelerationValue.set(a)
+accelerationValue.set(a0)
 tPropreValue.set(duree_vie_propre)
 
 vitesseIniVar.set("Vitesse initiale")
